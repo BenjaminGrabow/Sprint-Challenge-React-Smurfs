@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import Smurf from './components/Smurf';
 import { NavLink, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -95,6 +96,9 @@ class App extends Component {
         <NavLink to="/smurf_form" >Smurf Form</NavLink>
         <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} updater={this.update} />} />
         <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
+        {this.state.smurfs.map(smurf => <Route path={`/smurf_${smurf.name}`} 
+        render={() => <Smurf name={smurf.name} height={smurf.height} age={smurf.age} /> }
+        />)}
         <form className={this.state.form === 'off' ? "off" : "on"}>
           <input
             onChange={this.handleInputChange}
