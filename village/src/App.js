@@ -66,7 +66,9 @@ class App extends Component {
       age: '',
       height: '',
       id: '',
+      search: "",
       form: 'off',
+      oldDataSmurfs: '',
     };
   }
   fetchSmurfs = () => {
@@ -121,6 +123,26 @@ class App extends Component {
       height: ''
     }))
   };
+
+  handleInputSearch = (e) => {
+    const copyOfArray = this.state.smurfs;
+    
+    this.setState({ [e.target.name]: e.target.value });
+
+    const searchedItem = copyOfArray.filter(copy => copy.name.toLocaleLowerCase().startsWith(this.state.search.toLocaleLowerCase()));
+    
+    this.setState({
+      smurfs: searchedItem,
+      oldDataSmurfs: copyOfArray
+    })
+  };
+
+  back = () => {
+    this.setState({
+      smurfs: this.state.oldDataSmurfs,
+      oldDataSmurfs: ''
+    })
+  }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
@@ -158,6 +180,11 @@ class App extends Component {
           />
           <button type="submit" onClick={event => this.updateSmurf(event)}>Update</button>
         </form>
+        <input onChange={this.handleInputSearch}
+            placeholder="search"
+            value={this.state.search}
+            name="search"></input>
+        <button onClick={this.back}>Back</button>
       </StyledDiv>
     );
   }
