@@ -8,6 +8,23 @@ import { NavLink, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
+background: #bdc3c7;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+text-align: center;
+height: 220vh;
+
+nav {
+  display: flex;
+  justify-content: space-around;
+
+  a {
+    text-decoration: none;
+    font-size: 2rem;
+    background-color: black;
+    color: white;
+  }
+}
 
 .off {
   display: none;
@@ -15,6 +32,23 @@ const StyledDiv = styled.div`
 
 .on {
   display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+input {
+border-radius: 2rem;
+font-size: 1.5rem;
+margin: 0 1rem;
+}
+
+button {
+background-color: red;
+border-radius: 50%;
+width: 30%;
+height: 5rem;
+box-shadow: 1rem .5rem .5rem black;
 }
 
 `;
@@ -92,8 +126,10 @@ class App extends Component {
   render() {
     return (
       <StyledDiv>
+        <nav>
         <NavLink to="/" >Smurfs</NavLink>
         <NavLink to="/smurf_form" >Smurf Form</NavLink>
+        </nav>
         <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} updater={this.update} />} />
         <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
         {this.state.smurfs.map(smurf => <Route path={`/smurf_${smurf.name}`} 
