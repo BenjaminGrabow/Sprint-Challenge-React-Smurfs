@@ -4,6 +4,7 @@ import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 import Smurf from './components/Smurf';
+import LoginPage from './components/LoginPage/LoginPage';
 import { NavLink, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -127,10 +128,11 @@ class App extends Component {
     return (
       <StyledDiv>
         <nav>
-        <NavLink to="/" >Smurfs</NavLink>
+        <NavLink exact to="/smurfs" >Smurfs</NavLink>
         <NavLink to="/smurf_form" >Smurf Form</NavLink>
         </nav>
-        <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} updater={this.update} />} />
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/smurfs" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} updater={this.update} />} />
         <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
         {this.state.smurfs.map(smurf => <Route path={`/smurf_${smurf.name}`} 
         render={() => <Smurf name={smurf.name} height={smurf.height} age={smurf.age} /> }
