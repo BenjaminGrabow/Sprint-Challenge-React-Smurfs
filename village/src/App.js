@@ -28,6 +28,12 @@ class App extends Component {
       smurfs: newSmurf
     })
   };
+
+  deleteSmurf = (id) => {
+    axios.delete(`${smurfAPI}/${id}`).then(res => this.setState({
+      smurfs: res.data
+    }))
+  }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
@@ -36,7 +42,7 @@ class App extends Component {
       <div className="App">
         <NavLink to="/" >Smurfs</NavLink>
         <NavLink to="/smurf_form" >Smurf Form</NavLink>
-        <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} />} />
+        <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} />} />
         <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
       </div>
     );
