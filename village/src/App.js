@@ -4,6 +4,8 @@ import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 import { NavLink, Route } from 'react-router-dom';
+import styled from 'styled-components';
+
 
 const smurfAPI = 'http://localhost:3333/smurfs';
 
@@ -15,6 +17,7 @@ class App extends Component {
       name: '',
       age: '',
       height: '',
+      form: 'off'
     };
   }
   fetchSmurfs = () => {
@@ -51,7 +54,7 @@ class App extends Component {
         <NavLink to="/smurf_form" >Smurf Form</NavLink>
         <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} />} />
         <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
-        <form>
+        <form className={this.state.form === 'off' ? "off" : "on"}>
           <input
             onChange={this.handleInputChange}
             placeholder="name"
