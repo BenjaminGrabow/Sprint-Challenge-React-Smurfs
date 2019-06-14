@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import { NavLink, Route } from 'react-router-dom';
 
 const smurfAPI = 'http://localhost:3333/smurfs';
 
@@ -33,8 +34,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SmurfForm addNewSmurf={this.addSmurf} />
-        <Smurfs smurfs={this.state.smurfs} />
+        <NavLink to="/" >Smurfs</NavLink>
+        <NavLink to="/smurf_form" >Smurf Form</NavLink>
+        <Route exact path="/" render={() => <Smurfs smurfs={this.state.smurfs} />} />
+        <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
       </div>
     );
   }
