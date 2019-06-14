@@ -51,7 +51,6 @@ width: 30%;
 height: 5rem;
 box-shadow: 1rem .5rem .5rem black;
 }
-
 `;
 
 
@@ -73,7 +72,7 @@ class App extends Component {
   }
   fetchSmurfs = () => {
     axios.get(smurfAPI)
-    .then(res => this.setState({smurfs: res.data}))
+      .then(res => this.setState({ smurfs: res.data }))
   };
 
   componentDidMount = () => {
@@ -87,9 +86,10 @@ class App extends Component {
   };
 
   deleteSmurf = (id) => {
-    axios.delete(`${smurfAPI}/${id}`).then(res => this.setState({
-      smurfs: res.data
-    }))
+    axios.delete(`${smurfAPI}/${id}`)
+      .then(res => this.setState({
+        smurfs: res.data
+      }))
   };
 
   handleInputChange = e => {
@@ -105,7 +105,7 @@ class App extends Component {
 
   updateSmurf = (event) => {
     event.preventDefault();
-    
+
     const id = this.state.id;
 
     const updatedSmurf = {
@@ -114,23 +114,24 @@ class App extends Component {
       height: this.state.height,
     };
 
-    axios.put(`${smurfAPI}/${id}`, updatedSmurf).then(res => this.setState({
-      smurfs: res.data,
-      form: 'off',
-      id: '',
-      name: '',
-      age: '',
-      height: ''
-    }))
+    axios.put(`${smurfAPI}/${id}`, updatedSmurf)
+      .then(res => this.setState({
+        smurfs: res.data,
+        form: 'off',
+        id: '',
+        name: '',
+        age: '',
+        height: ''
+      }))
   };
 
   handleInputSearch = (e) => {
     const copyOfArray = this.state.smurfs;
-    
+
     this.setState({ [e.target.name]: e.target.value });
 
     const searchedItem = copyOfArray.filter(copy => copy.name.toLocaleLowerCase().startsWith(this.state.search.toLocaleLowerCase()));
-    
+
     this.setState({
       smurfs: searchedItem,
       oldDataSmurfs: copyOfArray
@@ -150,15 +151,25 @@ class App extends Component {
     return (
       <StyledDiv>
         <nav>
-        <NavLink exact to="/smurfs" >Smurfs</NavLink>
-        <NavLink to="/smurf_form" >Smurf Form</NavLink>
+          <NavLink exact to="/smurfs" >Smurfs</NavLink>
+          <NavLink to="/smurf_form" >Smurf Form</NavLink>
         </nav>
-        <Route exact path="/" component={LoginPage} />
-        <Route exact path="/smurfs" render={() => <Smurfs smurfs={this.state.smurfs} deleter={this.deleteSmurf} updater={this.update} />} />
-        <Route path="/smurf_form" render={() => <SmurfForm addNewSmurf={this.addSmurf} />} />
-        {this.state.smurfs.map(smurf => <Route path={`/smurf_${smurf.name}`} 
-        render={() => <Smurf name={smurf.name} height={smurf.height} age={smurf.age} /> }
-        />)}
+        <Route exact path="/"
+          component={LoginPage} />
+        <Route exact path="/smurfs"
+          render={() => <Smurfs
+            smurfs={this.state.smurfs}
+            deleter={this.deleteSmurf}
+            updater={this.update} />} />
+        <Route path="/smurf_form" render={() =>
+          <SmurfForm addNewSmurf={this.addSmurf} />} />
+        {this.state.smurfs.map(smurf =>
+          <Route path={`/smurf_${smurf.name}`}
+            render={() =>
+              <Smurf name={smurf.name}
+                height={smurf.height}
+                age={smurf.age} />}
+          />)}
         <form className={this.state.form === 'off' ? "off" : "on"}>
           <input
             onChange={this.handleInputChange}
@@ -178,12 +189,15 @@ class App extends Component {
             value={this.state.height}
             name="height"
           />
-          <button type="submit" onClick={event => this.updateSmurf(event)}>Update</button>
+          <button type="submit"
+            onClick={event => this.updateSmurf(event)}>
+            Update
+             </button>
         </form>
         <input onChange={this.handleInputSearch}
-            placeholder="search"
-            value={this.state.search}
-            name="search"></input>
+          placeholder="search"
+          value={this.state.search}
+          name="search"></input>
         <button onClick={this.back}>Back</button>
       </StyledDiv>
     );

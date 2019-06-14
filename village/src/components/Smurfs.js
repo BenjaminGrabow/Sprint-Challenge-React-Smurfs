@@ -38,15 +38,19 @@ class Smurfs extends Component {
           {this.props.smurfs.map(smurf => {
             return (
               <StyledContainer>
-              <Smurf
-                name={smurf.name}
-                id={smurf.id}
-                age={smurf.age}
-                height={smurf.height}
-                key={smurf.id}
-              />
-              <button onClick={() => this.props.deleter(smurf.id)}>Delete</button>
-              <button onClick={() => this.props.updater(smurf.id)}>Update</button>
+                <Smurf
+                  name={smurf.name}
+                  id={smurf.id}
+                  age={smurf.age}
+                  height={smurf.height}
+                  key={smurf.id}
+                />
+                <button onClick={() => this.props.deleter(smurf.id)}>
+                  Delete
+                  </button>
+                <button onClick={() => this.props.updater(smurf.id)}>
+                  Update
+                  </button>
               </StyledContainer>
             );
           })}
@@ -57,7 +61,7 @@ class Smurfs extends Component {
 }
 
 Smurf.defaultProps = {
- smurfs: [],
+  smurfs: [],
 };
 
 export default Smurfs;

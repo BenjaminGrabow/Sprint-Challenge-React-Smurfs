@@ -72,9 +72,15 @@ class LoginPage extends React.Component {
                         <StyledDiv>
                                 <h1>Login Here</h1>
                                 <p>Username</p>
-                                <input onChange={this.changeUsername} type="text" name="" placeholder="Enter Username" />
+                                <input onChange={this.changeUsername}
+                                        type="text"
+                                        name=""
+                                        placeholder="Enter Username" />
                                 <p>Password</p>
-                                <input onChange={this.changePassword} type="password" name="" placeholder="Enter Password" />
+                                <input onChange={this.changePassword}
+                                        type="password"
+                                        name=""
+                                        placeholder="Enter Password" />
                                 <button className={
                                         this.state.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
                                                 && this.state.username.length > 5

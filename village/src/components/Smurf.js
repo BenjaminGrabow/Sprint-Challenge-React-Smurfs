@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
-
 background: #c31432;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -30,7 +29,9 @@ a {
 const Smurf = props => {
   return (
     <StyledDiv>
-      <Link to={`/smurf_${props.name}`}><h3>{props.name}</h3></Link>
+      <Link to={`/smurf_${props.name}`}>
+        <h3>{props.name}</h3>
+      </Link>
       <strong>{props.height} tall</strong>
       <p>{props.age} smurf years old</p>
     </StyledDiv>
