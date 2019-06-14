@@ -61,6 +61,8 @@ class App extends Component {
     super(props);
     this.state = {
       smurfs: [],
+      errorMessage: '',
+      spinner: false,
       name: '',
       age: '',
       height: '',
@@ -71,8 +73,16 @@ class App extends Component {
     };
   }
   fetchSmurfs = () => {
+    this.setState({ spinner: true });
+
     axios.get(smurfAPI)
       .then(res => this.setState({ smurfs: res.data }))
+      .catch(error => {
+        this.setState({ errorMessage: error.message });
+      })
+      .finally(() => {
+        this.setState({ spinner: false });
+      })
   };
 
   componentDidMount = () => {
@@ -148,6 +158,21 @@ class App extends Component {
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
   render() {
+    if (this.state.spinner) {
+      return (
+        <StyledDiv>
+          Loading...
+        </StyledDiv>
+      );
+    }
+
+    if (this.state.error) {
+      return (
+        <StyledDiv>
+          <div>Argh! This failed rather miserably. {this.state.error.message}</div>
+        </StyledDiv>
+      );
+    }
     return (
       <StyledDiv>
         <nav>
